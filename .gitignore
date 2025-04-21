@@ -1,0 +1,8 @@
+# Verilog simulation output
+sim/*.vcd
+sim/*.out
+*.o
+*.bin
+*.hex
+*.dump
+*.log
