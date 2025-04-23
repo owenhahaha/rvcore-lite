@@ -15,7 +15,7 @@ alu U_alu(
     .Out(out)
 );
 
-integer fin, fout;
+integer fin, fout, ret;
 
 // clock signal generator
 initial clk = 0;
@@ -28,41 +28,42 @@ initial begin
 end
 
 // simulation
-// initial begin
-//     fin = $fopen("sim/alu_test.txt", "r");
-//     fout = $fopen("sim/alu_result.txt", "w");
-
-//     while (!$feof(fin)) begin
-//         $fscanf(fin, "%h %h %h\n", a, b, sel);
-//         #0.5;
-//         $fwrite(fout, "%08x\n", out);
-//         #0.5;
-//     end
-//     $fclose(fin);
-//     $fclose(fout);
-//     $finish();
-// end
-
-// simulation
-integer i, j;
-
 initial begin
-    sel = 4'd0;
-    fout = $fopen("sim/1_alu.out", "w");
+    fin = $fopen("sim/1_alu_test.txt", "r");
+    fout = $fopen("sim/1_alu_result.txt", "w");
 
-    for(i=0; i<10; i=i+1) begin
-        for(j=22; j<32; j=j+1) begin
-            a = i;
-            b = $signed(j);
-            #0.5;
-            // $fwrite(fout, "%08x, %08x, %08x\n", a, b, out);
-            $fwrite(fout, "a = %2d; b = %2d; out = %2d\n", a, b, out);
-            #0.5;
-        end
+    while (!$feof(fin)) begin
+        ret = $fscanf(fin, "%h %h %h\n", a, b, sel);
+        #0.5;
+        $fwrite(fout, "%08x\n", out);
+        #0.5;
     end
+    $fclose(fin);
     $fclose(fout);
     $display("##### End of Simulation #####");
     $finish();
 end
+
+// simulation
+// integer i, j;
+
+// initial begin
+//     sel = 4'd0;
+//     fout = $fopen("sim/1_alu.out", "w");
+
+//     for(i=0; i<10; i=i+1) begin
+//         for(j=22; j<32; j=j+1) begin
+//             a = i;
+//             b = $signed(j);
+//             #0.5;
+//             // $fwrite(fout, "%08x, %08x, %08x\n", a, b, out);
+//             $fwrite(fout, "a = %2d; b = %2d; out = %2d\n", a, b, out);
+//             #0.5;
+//         end
+//     end
+//     $fclose(fout);
+//     $display("##### End of Simulation #####");
+//     $finish();
+// end
 
 endmodule

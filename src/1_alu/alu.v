@@ -18,7 +18,7 @@ always@* begin
         `ALU_XOR: Out = A ^ B;
         `ALU_SLL: Out = A << B[4:0];
         `ALU_SRL: Out = A >> B[4:0];
-        `ALU_SRA: Out = A >>> B[4:0];
+        `ALU_SRA: Out = $signed(A) >>> B[4:0];
         `ALU_SLT: Out = $signed(A) < $signed(B);
         `ALU_SLTU: Out = A < B;
     endcase
